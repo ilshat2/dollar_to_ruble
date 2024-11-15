@@ -2,7 +2,6 @@ import requests
 from django.http import JsonResponse
 from exchange_rate.models import ExchangeRate
 from exchange_rate.serializers import ExchangeRateSerializer
-#from dotenv import load_dotenv
 import os
 
 
@@ -21,12 +20,29 @@ def get_current_usd(request):
             ExchangeRate.objects.create(decim=rate_now)
 
             last_ten_rates = ExchangeRate.objects.order_by('-date')[:10]
-            serializer = ExchangeRateSerializer(last_ten_rates,
-                                                many=True)
+            serializer = ExchangeRateSerializer(
+                last_ten_rates,
+                many=True
+            )
+            
+            query_histoty = [
+                {"Дата запроса": record["date"],
+                "Курс рубля (RUB) к евро (EUR)": record["decim"]}
+                for record in serializer.data
+            ]
 
-            return JsonResponse({'Current exchange rate': rate_now,
-                                 'Query history': serializer.data})
+            return JsonResponse(
+                {'Текущий курс рубля (RUB) к евро (EUR)': rate_now,
+                'История запросов': query_histoty},
+                json_dumps_params={'ensure_ascii': False}
+            )
         else:
-            return JsonResponse({'error': 'Bad Request'}, status=400)
+            return JsonResponse(
+                {'error': 'Bad Request'},
+                status=400
+            )
     else:
-        return JsonResponse({'error': '500'}, status=500)
+        return JsonResponse(
+            {'error': 'Internal Server Error'},
+            status=500
+        )
