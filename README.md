@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/bee3310b-1927-4619-a6a5-8ceb7065a7a2)# dollar_to_ruble
 Проект для отображения курса рубля к евро через api с сайта [Exchangeratesapi](https://exchangeratesapi.io/)
 
 ### Структура проекта:
@@ -46,6 +45,6 @@ ilshat2
 
 ---
 
-![Так вынлядит ответ](https://i.ibb.co/rktm3D2/2024-11-15-215850.png)
+![#Так вынлядит ответ](https://i.ibb.co/rktm3D2/2024-11-15-215850.png)
 
 ---
