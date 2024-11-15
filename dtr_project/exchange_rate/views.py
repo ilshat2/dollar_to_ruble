@@ -1,13 +1,10 @@
-
 import requests
-#from django.shortcuts import render
 from django.http import JsonResponse
-from models import ExchangeRate
-from serializers import ExchangeRateSerializer
+from exchange_rate.models import ExchangeRate
+from exchange_rate.serializers import ExchangeRateSerializer
 
 
-def get_current_usd(requests):
-
+def get_current_usd(request):
     url = 'https://api.exchangeratesapi.io/latest'
     response = requests.get(url, params={'base': 'USD', 'symbols': 'RUB'})
     json = response.json()
@@ -19,4 +16,4 @@ def get_current_usd(requests):
 
     serializer = ExchangeRateSerializer(last_ten_rates, many=True)
 
-    return JsonResponse({'rate_now': rate_now, 'history': serializer.d})
+    return JsonResponse({'rate_now': rate_now, 'history': serializer.data})
