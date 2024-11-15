@@ -1,3 +1,4 @@
 from django.shortcuts import render
+from .models import ExchangeRate
 
-# Create your views here.
+
