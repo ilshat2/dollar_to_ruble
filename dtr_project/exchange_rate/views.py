@@ -8,9 +8,9 @@ import os
 def get_current_usd(request):
     url = 'https://api.exchangeratesapi.io/v1/latest?access_key=api_key'
     api_key = os.getenv('API_KEY')
-    response = requests.get(url, params={'base': 'EUR',
-                                         'symbols': 'RUB',
-                                         'access_key': api_key})
+    response = requests.get(url, params={'base' : 'EUR',
+                                         'symbols' : 'RUB',
+                                         'access_key' : api_key})
     
     if response.status_code == 200:
         json = response.json()
@@ -26,23 +26,24 @@ def get_current_usd(request):
             )
             
             query_histoty = [
-                {"Дата запроса": record["date"],
-                "Курс рубля (RUB) к евро (EUR)": record["decim"]}
+                {"Дата запроса" : record["date"],
+                "Курс рубля (RUB) к евро (EUR)" : record["decim"]}
                 for record in serializer.data
             ]
 
             return JsonResponse(
-                {'Текущий курс рубля (RUB) к евро (EUR)': rate_now,
+                {'Текущий курс рубля (RUB) к евро (EUR)' : rate_now,
                 'История запросов': query_histoty},
-                json_dumps_params={'ensure_ascii': False}
+                json_dumps_params={'ensure_ascii' : False,
+                                   'indent' : 4,}
             )
         else:
             return JsonResponse(
-                {'error': 'Bad Request'},
+                {'error' : 'Bad Request'},
                 status=400
             )
     else:
         return JsonResponse(
-            {'error': 'Internal Server Error'},
+            {'error' : 'Internal Server Error'},
             status=500
         )
