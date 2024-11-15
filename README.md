@@ -1,4 +1,4 @@
-Проект для отображения курса рубля к евро через api с сайта [Exchangeratesapi](https://exchangeratesapi.io/)
+### Проект для отображения курса рубля к евро через api с сайта [Exchangeratesapi](https://exchangeratesapi.io/)
 
 ### Структура проекта:
 ```
